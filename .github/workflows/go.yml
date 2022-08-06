@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ "aula-1" ]
+    branches: [ Aula-1 ]
   pull_request:
-    branches: [ "aula-1" ]
+    branches: [ Aula-1 ]
 
 jobs:
 
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go_version: ['1.17', '1.18', '>=1.18']
+        go_version: ['1.18', '1.17', '>=1.18']
     steps:
     - uses: actions/checkout@v3
 
@@ -20,15 +20,16 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: ${{ matrix.go_version }}
-    
+      
     - name: Build-DB
       run: docker-compose build
       
     - name: Create-DB
       run: docker-compose up -d
-    
-    - name: Test app
-      run: go test -v main_test.go
+
+    - name: Test
+      run: go test -v main_test.go 
+      
   
   build:
     needs: test
